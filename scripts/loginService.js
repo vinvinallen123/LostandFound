@@ -1,4 +1,4 @@
-// 🔥 FUNCTION (only ONE)
+
 function validateNumFields(element) {
     element.value = element.value.replace(/[0-9]/g, " ");
 }
@@ -9,12 +9,11 @@ function validateNumFields(element) {
 
 
 
-// USERNAME (no spaces only)
 document.getElementById("loginUsername").addEventListener("input", function () {
     this.value = this.value.replace(/\s/g, "");
 });
 
-// PASSWORD (no spaces only)
+
 document.getElementById("loginPassword").addEventListener("input", function () {
     this.value = this.value.replace(/\s/g, "");
 });

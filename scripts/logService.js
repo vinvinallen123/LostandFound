@@ -1,9 +1,9 @@
-// ITEM NAME (allow spaces, no need to remove numbers)
+
 document.getElementById("itemName").addEventListener("input", function () {
     this.value = this.value.replace(/^\s+/, "");
 });
 
-// ITEM DESCRIPTION (allow spaces and numbers)
+
 document.getElementById("itemDesc").addEventListener("input", function () {
     this.value = this.value.replace(/^\s+/, "");
 });

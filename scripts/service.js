@@ -1,29 +1,29 @@
-// 🔥 FUNCTION (only ONE)
+
 function validateNumFields(element) {
     element.value = element.value.replace(/[0-9]/g, " ");
 }
 
-// FIRST NAME
+
 document.getElementById("firstName").addEventListener("input", function () {
     validateNumFields(this);
 });
 
-// LAST NAME
+
 document.getElementById("lastName").addEventListener("input", function () {
     validateNumFields(this);
 });
 
-// USERNAME (no spaces)
+
 document.getElementById("username").addEventListener("input", function () {
     this.value = this.value.replace(/\s/g, "");
 });
 
-// EMAIL (no spaces)
+
 document.getElementById("email").addEventListener("input", function () {
     this.value = this.value.replace(/\s/g, "");
 });
 
-// PASSWORD (no spaces)
+
 document.getElementById("password").addEventListener("input", function () {
     this.value = this.value.replace(/\s/g, "");
 });
