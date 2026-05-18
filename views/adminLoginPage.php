@@ -85,7 +85,7 @@
           <button type="button" class="login-btn" onclick="adminLoginFunc()">Sign In</button>
 
           <p class="register-link">
-            Don’t have an account? <a href="registrationPage.php">Create account</a>
+            Don’t have an account? <a href="adminRegistrationPage.php">Create account</a>
           </p>
         </form>
       </div>

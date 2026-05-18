@@ -11,6 +11,17 @@ $logmanager = new logManager();
 if (
     isset($_POST["fName"], $_POST["lName"], $_POST["email"], $_POST["username"], $_POST["password"])
 ) {
+
+    $email = $_POST["email"];
+
+    if (
+        !str_ends_with($email, "@gmail.com") &&
+        !str_ends_with($email, "@yahoo.com")
+    ) {
+        echo "Only Gmail and Yahoo emails are allowed";
+        exit;
+    }
+
     $usermanager->addUserFunc(
         $_POST["fName"],
         $_POST["lName"],
@@ -61,7 +72,7 @@ if (
         <br>
 
         <p style="font-size: 21px; font-weight: bold;">
-            📦 The Mission: Possible Team
+            The Mission: Possible Team
         </p>
     </div>
     ';
@@ -93,3 +104,4 @@ if (isset($_POST["deleteLogID"])) {
     $logmanager->deleteLogFunc($_POST["deleteLogID"]);
     exit;
 }
+?>
