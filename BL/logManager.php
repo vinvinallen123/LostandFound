@@ -61,9 +61,15 @@ public function deleteLogFunc($logID): void {
     }
 }
 
-public function getDailyReportsFunc() {
-    return $this->logModel->getDailyReports();
+public function getItemsPerDay(): mixed {
+    return $this->logModel->getItemsPerDay();
+}
+
+public function getReportsByDayName(): mixed {
+    return $this->logModel->getReportsByDayName();
 }
 
 }
+
+
 ?>

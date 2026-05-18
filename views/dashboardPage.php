@@ -9,11 +9,6 @@ if (!isset($_SESSION["user_id"])) {
 
 $logmanager = new logManager();
 $logs = $logmanager->getLogsFunc();
-
-// ✅ chart data (same style as your prof)
-$reports = $logmanager->getDailyReportsFunc();
-$labels = array_column($reports, 'day_name');
-$data = array_column($reports, 'total');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,7 +19,6 @@ $data = array_column($reports, 'total');
   <link rel="stylesheet" href="../styles/dashboardStyle.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
-  <!-- libs -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
@@ -52,6 +46,7 @@ $data = array_column($reports, 'total');
     </aside>
 
     <main class="main-content">
+
       <div class="welcome-box">
         <h1>Hello, <?php echo $_SESSION["first_name"]; ?>!</h1>
         <p>Report an item and check the current missing items list.</p>
@@ -61,6 +56,7 @@ $data = array_column($reports, 'total');
 
         <!-- ADD ITEM FORM -->
         <div class="floating-form-box">
+
           <div class="form-header">
             <div class="icon-box">📦</div>
             <div>
@@ -70,6 +66,7 @@ $data = array_column($reports, 'total');
           </div>
 
           <form action="#" method="POST" class="item-form">
+
             <div class="input-group">
               <label>Item Name</label>
               <input type="text" id="itemName" placeholder="Enter item name">
@@ -88,12 +85,16 @@ $data = array_column($reports, 'total');
               </select>
             </div>
 
-            <button type="button" class="submit-btn" onclick="submitItem()">Submit Item</button>
+            <button type="button" class="submit-btn" onclick="submitItem()">
+              Submit Item
+            </button>
+
           </form>
         </div>
 
         <!-- TABLE -->
         <div class="list-box">
+
           <div class="list-header">
             <div class="icon-box">📋</div>
             <div>
@@ -103,7 +104,9 @@ $data = array_column($reports, 'total');
           </div>
 
           <div class="table-wrapper">
+
             <table class="items-table">
+
               <thead>
                 <tr>
                   <th>Item Name</th>
@@ -111,51 +114,48 @@ $data = array_column($reports, 'total');
                   <th>Status</th>
                 </tr>
               </thead>
+
               <tbody>
+
                 <?php if (!empty($logs)) : ?>
+
                   <?php foreach ($logs as $log) : ?>
+
                     <tr>
                       <td><?php echo $log["item_name"]; ?></td>
                       <td><?php echo $log["item_desc"]; ?></td>
                       <td><?php echo $log["item_status"]; ?></td>
                     </tr>
+
                   <?php endforeach; ?>
+
                 <?php else : ?>
+
                   <tr>
                     <td colspan="3">No items found.</td>
                   </tr>
+
                 <?php endif; ?>
+
               </tbody>
+
             </table>
+
           </div>
+
         </div>
 
       </div>
 
-      <!-- ✅ CHART -->
-      <div style="width:100%; max-width:600px; margin:30px auto;">
-        <canvas id="myChart"></canvas>
-      </div>
-
     </main>
+
   </div>
 
   <footer class="footer">
     <p>© Lost and Found Tracker. Built with 💙 by Allen</p>
   </footer>
 
-  <!-- ✅ Chart.js -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-  
-  <script>
-  window.barData = {
-      labels: <?php echo json_encode($labels); ?>,
-      data: <?php echo json_encode($data); ?>
-  };
-  </script>
-
-  <!-- ✅ your JS -->
+  <!-- JS -->
   <script src="../scripts/logService.js"></script>
 
 </body>

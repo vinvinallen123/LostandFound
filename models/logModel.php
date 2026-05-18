@@ -61,19 +61,31 @@ class logModel {
 
         return $response;
     }
+public function getItemsPerDay(): mixed {
+    $query = "SELECT DATE(date_reported) AS report_date, COUNT(*) AS total
+              FROM logs_tbl
+              GROUP BY DATE(date_reported)
+              ORDER BY DATE(date_reported) ASC";
 
-    public function getDailyReports(): mixed {
-        $query = "SELECT DAYNAME(date_reported) AS day_name, COUNT(*) AS total
-                  FROM logs_tbl
-                  GROUP BY DAYNAME(date_reported)
-                  ORDER BY FIELD(DAYNAME(date_reported),
-                  'Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday')";
+    $stmt = $this->connect->prepare($query);
+    $stmt->execute();
 
-        $response = $this->connect->prepare($query);
-        $response->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 
-        return $response->fetchAll(PDO::FETCH_ASSOC);
-    }
+
+public function getReportsByDayName(): mixed {
+    $query = "SELECT DAYNAME(date_reported) AS day_name, COUNT(*) AS total
+              FROM logs_tbl
+              GROUP BY DAYNAME(date_reported)
+              ORDER BY FIELD(DAYNAME(date_reported),
+              'Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday')";
+
+    $stmt = $this->connect->prepare($query);
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 }
 
 

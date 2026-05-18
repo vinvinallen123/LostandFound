@@ -1,115 +1,40 @@
-function updateLogFunc(logID, itemName, itemDesc, itemStatus, adminID) {
+function adminSubmitFunc() {
     $.ajax({
-        url: "../controllers/controller.php",
+        url: "../controllers/adminController.php",
         type: "POST",
         data: {
-            logID: logID,
-            itemName: itemName,
-            itemDesc: itemDesc,
-            itemStatus: itemStatus,
-            adminID: adminID
+            adminFirstName: $("#firstName").val(),
+            adminLastName: $("#lastName").val(),
+            adminEmail: $("#email").val(),
+            adminUsername: $("#username").val(),
+            adminPassword: $("#password").val()
         },
-        success: function(returnedData) {
-            if (returnedData.includes("successfully")) {
-                Swal.fire({
-                    title: "Success!",
-                    text: returnedData,
-                    icon: "success"
-                }).then(() => {
-                    location.reload();
-                });
+        success: function(res) {
+            if (res.includes("successfully")) {
+                Swal.fire("Success", res, "success")
+                .then(() => window.location.href = "adminLoginPage.php");
             } else {
-                Swal.fire({
-                    title: "Error!",
-                    text: returnedData,
-                    icon: "error"
-                });
+                Swal.fire("Error", res, "error");
             }
-        },
-        error: function(xhr) {
-            Swal.fire({
-                title: "Error!",
-                text: xhr.status + " : " + xhr.responseText,
-                icon: "error"
-            });
         }
     });
 }
 
-function removeLogFunc(logID) {
-    Swal.fire({
-        title: "Are you sure?",
-        text: "This item will be deleted.",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: "Yes, delete it!"
-    }).then((result) => {
-        if (result.isConfirmed) {
-            $.ajax({
-                url: "../controllers/controller.php",
-                type: "POST",
-                data: {
-                    deleteLogID: logID
-                },
-                success: function(returnedData) {
-                    if (returnedData.includes("successfully")) {
-                        Swal.fire({
-                            title: "Deleted!",
-                            text: returnedData,
-                            icon: "success"
-                        }).then(() => {
-                            location.reload();
-                        });
-                    } else {
-                        Swal.fire({
-                            title: "Error!",
-                            text: returnedData,
-                            icon: "error"
-                        });
-                    }
-                },
-                error: function(xhr) {
-                    Swal.fire({
-                        title: "Error!",
-                        text: xhr.status + " : " + xhr.responseText,
-                        icon: "error"
-                    });
-                }
-            });
-        }
-    });
-}
-function changeStatus(logID) {
-    Swal.fire({
-        title: "Update Status",
-        input: "select",
-        inputOptions: {
-            "Missing": "Missing",
-            "Found": "Found",
-            "Claimed": "Claimed"
+function adminLoginFunc() {
+    $.ajax({
+        url: "../controllers/adminController.php",
+        type: "POST",
+        data: {
+            adminLoginUsername: $("#loginUsername").val(),
+            adminLoginPassword: $("#loginPassword").val()
         },
-        inputPlaceholder: "Select new status",
-        showCancelButton: true
-    }).then((result) => {
-        if (result.isConfirmed && result.value) {
-
-            $.ajax({
-                url: "../controllers/controller.php",
-                type: "POST",
-                data: {
-                    logID: logID,
-                    itemStatus: result.value 
-                },
-                success: function(response) {
-                    if (response.includes("successfully")) {
-                        Swal.fire("Updated!", response, "success")
-                        .then(() => location.reload());
-                    } else {
-                        Swal.fire("Error!", response, "error");
-                    }
-                }
-            });
-
+        success: function(res) {
+            if (res.includes("Login successful")) {
+                Swal.fire("Success", res, "success")
+                .then(() => window.location.href = "../views/adminDashboardPage.php");
+            } else {
+                Swal.fire("Error", res, "error");
+            }
         }
     });
 }
