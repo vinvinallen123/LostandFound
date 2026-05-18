@@ -71,16 +71,7 @@
           <div class="input-group">
             <label for="loginPassword">Password</label>
             <input type="password" id="loginPassword" name="loginPassword" placeholder="Enter your password">
-          </div>
-
-          <div class="extra-options">
-            <label class="remember-me">
-              <input type="checkbox">
-              <span>Remember me</span>
-            </label>
-
-            <a href="#" class="forgot-link">Forgot password?</a>
-          </div>
+   
 
           <button type="button" class="login-btn" onclick="adminLoginFunc()">Sign In</button>
 
